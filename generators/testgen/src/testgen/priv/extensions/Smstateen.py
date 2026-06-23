@@ -576,6 +576,7 @@ def make_smstateen(test_data: TestData) -> list[str]:
     # Unconditional coverpoints — required by all Smstateen targets
     lines.extend(_generate_csr_illegal_accesses(test_data))
     lines.extend(_generate_walking_ones(test_data))
+    lines.append("#ifndef SM1P11P0_SUPPORTED")
     lines.extend(
         _generate_bit_controlled(
             test_data,
@@ -586,7 +587,8 @@ def make_smstateen(test_data: TestData) -> list[str]:
             csrs=["senvcfg"],
         )
     )
-
+    lines.append("#endif  // !defined(SM1P11P0_SUPPORTED)")
+    
     # cp_imsic — only when IMSIC is present
     lines.append("#ifdef IMSIC_SUPPORTED")
     lines.extend(
